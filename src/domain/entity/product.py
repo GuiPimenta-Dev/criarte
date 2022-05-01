@@ -1,9 +1,9 @@
 from typing import NamedTuple
 
 
-class Item(NamedTuple):
+class Product(NamedTuple):
     id: str
-    product: str
+    name: str
     client: str
     completed: bool
     observations: str
