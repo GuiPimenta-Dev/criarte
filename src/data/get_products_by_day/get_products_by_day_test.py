@@ -1,30 +1,12 @@
 from datetime import date
 
-import pytest
 from faker import Faker
 
-from src.data.register_product.register_product_dto import ClientDTO, ProductDTO
 from src.infra.test.product_spy import ProductRepositorySpy
 
 from .get_products_by_day import GetProductsByDay
 
 faker = Faker()
-
-
-@pytest.fixture()
-def product():
-    return ProductDTO(
-        type=faker.name(),
-        printed_name=faker.name(),
-        theme=faker.name(),
-        price=faker.random_number(),
-        sex="male",
-        payment="pix",
-        day=date.today(),
-        client=ClientDTO(
-            name=faker.name(), address=faker.sentence(), state=faker.name()
-        ),
-    )
 
 
 def test_get_products_in_specific_day(product):
