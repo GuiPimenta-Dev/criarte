@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from src.data.register_product.register_product_dto import ProductDTO
+from src.data import ProductDTO
 from src.domain.entity.product import Product
 from src.domain.repository.product import ProductRepositoryInterface
 from src.domain.usecases import RegisterProductInterface

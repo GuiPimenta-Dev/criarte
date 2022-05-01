@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.data.register_product.register_product_dto import ProductDTO
+from src.data import ProductDTO
 from src.domain.entity import Product
 
 

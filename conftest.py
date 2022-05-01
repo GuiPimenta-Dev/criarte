@@ -3,7 +3,7 @@ from datetime import date
 import pytest
 from faker import Faker
 
-from src.data.register_product.register_product_dto import ClientDTO, ProductDTO
+from src.data import ClientDTO, ProductDTO
 
 faker = Faker()
 
