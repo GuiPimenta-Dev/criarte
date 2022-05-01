@@ -1,4 +1,4 @@
 def start_function():
-    """ Printing something """
+    """Printing something"""
 
     print("Ola mundo")
