@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from datetime import date
 from typing import List
 
-from src.domain.entity import Product
+from src.domain.entities import Product
 
 
 class GetProductsByDayInterface(ABC):

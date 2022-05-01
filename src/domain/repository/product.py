@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from datetime import date
 from typing import List
 
-from src.domain.entity.product import Product
+from src.domain.entities.product import Product
 
 
 class ProductRepositoryInterface(ABC):

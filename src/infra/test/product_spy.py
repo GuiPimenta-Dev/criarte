@@ -1,7 +1,7 @@
 from datetime import date
 from typing import List
 
-from src.domain.entity.product import Product
+from src.domain.entities.product import Product
 from src.domain.repository.product import ProductRepositoryInterface
 
 
