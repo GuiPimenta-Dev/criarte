@@ -1,20 +1,12 @@
 from abc import ABC, abstractmethod
-from datetime import date
 
-from domain.entity import Product
+from src.data.register_product.register_product_dto import ProductDTO
+from src.domain.entity import Product
 
 
 class RegisterProductInterface(ABC):
     """Abstract method for domain use cases"""
 
     @abstractmethod
-    def register(
-        self,
-        id: str,
-        name: str,
-        client: str,
-        completed: bool,
-        observations: str,
-        day: date,
-    ) -> Product:
+    def register_product(product: ProductDTO) -> Product:
         raise Exception("Should implement method register")

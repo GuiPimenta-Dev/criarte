@@ -1,1 +1,2 @@
+from .get_products_by_day import GetProductsByDayInterface
 from .register_product import RegisterProductInterface

@@ -1,29 +1,18 @@
 from datetime import date
+from typing import List
+
+from src.domain.entity.product import Product
+from src.domain.repository.product import ProductRepositoryInterface
 
 
-class ProductRepositorySpy:
+class ProductRepositorySpy(ProductRepositoryInterface):
     """Spy to Product Repository"""
 
     def __init__(self):
         self.insert_product_params = {}
 
-    def insert_product(
-        self,
-        id: str,
-        name: str,
-        client: str,
-        completed: bool,
-        observations: str,
-        day: date,
-    ) -> None:
-        product = {
-            "id": id,
-            "name": name,
-            "client": client,
-            "completed": completed,
-            "observations": observations,
-            "day": day,
-        }
+    def insert_product(self, product: Product) -> None:
+        day = product.day
         if day not in self.insert_product_params:
             self.insert_product_params[day] = [product]
         else:
@@ -33,3 +22,6 @@ class ProductRepositorySpy:
         if day in self.insert_product_params:
             return len(self.insert_product_params[day]) >= 10
         return False
+
+    def select_products_in_specific_day(self, day: date) -> List[Product]:
+        return self.insert_product_params.get(day, [])
