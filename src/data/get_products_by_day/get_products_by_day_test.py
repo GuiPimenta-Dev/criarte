@@ -1,11 +1,8 @@
 from datetime import date
 
-from faker import Faker
 from src.infra.test.product_spy import ProductRepositorySpy
 
 from .get_products_by_day import GetProductsByDay
-
-faker = Faker()
 
 
 def test_get_products_in_specific_day(product):
