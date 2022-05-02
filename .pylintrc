@@ -2,6 +2,8 @@
 
 disable=
     C0114, # missing-module-docstring
+    C0115, # missing-class-docstring
+    C0116, # missing-function-docstring
 
 # A comma-separated list of package or module names from where C extensions may
 # be loaded. Extensions are loading into the active Python interpreter and may
@@ -17,7 +19,7 @@ ignore=CVS
 
 # Add files or directories matching the regex patterns to the blacklist. The
 # regex matches against base names, not paths.
-ignore-patterns=
+ignore-patterns=(.)*_test\.py,test_(.)*\.py
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
