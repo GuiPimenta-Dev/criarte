@@ -11,7 +11,9 @@ def test_register_new_product(product):
     register_product_usecase = RegisterProduct(repository=product_repository)
 
     register_product_usecase.register_product(product=product)
-    product_registered = product_repository.insert_product_params[date.today()][0]
+    product_registered = product_repository.insert_product_by_day_params[date.today()][
+        0
+    ]
 
     assert product_registered.id
     assert product_registered.status.cover is False
@@ -26,7 +28,7 @@ def test_max_products_in_a_day_should_be_10(product):
     for _ in range(MAX_PRODUCTS_IN_A_DAY):
         register_product_usecase.register_product(product)
     assert (
-        len(product_repository.insert_product_params[date.today()])
+        len(product_repository.insert_product_by_day_params[date.today()])
         == MAX_PRODUCTS_IN_A_DAY
     )
 
