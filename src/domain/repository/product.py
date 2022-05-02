@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
 from datetime import date
 from typing import List
+from uuid import uuid4
 
+from src.data import StatusDTO
 from src.domain.entities.product import Product
 
 
@@ -19,3 +21,7 @@ class ProductRepositoryInterface(ABC):
     @abstractmethod
     def is_day_limit_reached(self, day: date) -> bool:
         raise Exception("Should implement method is_day_limit_reached")
+
+    @abstractmethod
+    def update_product_status(self, id: uuid4, status: StatusDTO) -> bool:
+        raise Exception("Should implement method update_product_status")

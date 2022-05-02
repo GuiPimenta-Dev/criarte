@@ -2,17 +2,7 @@ from datetime import date
 from typing import Literal
 
 from pydantic import UUID4, BaseModel
-
-
-class Client(BaseModel):
-    name: str
-    address: str
-    state: str
-
-
-class Status(BaseModel):
-    cover: bool
-    core: bool
+from src.data import ClientDTO, StatusDTO
 
 
 class Product(BaseModel):
@@ -24,5 +14,5 @@ class Product(BaseModel):
     sex: Literal["male", "female"]
     payment: Literal["pix", "credit_card", "bank_slip"]
     day: date
-    client: Client
-    status: Status = Status(cover=False, core=False)
+    client: ClientDTO
+    status: StatusDTO = StatusDTO(cover=False, core=False)

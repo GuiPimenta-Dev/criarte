@@ -9,6 +9,11 @@ class ClientDTO(BaseModel):
     state: str
 
 
+class StatusDTO(BaseModel):
+    cover: bool
+    core: bool
+
+
 class ProductDTO(BaseModel):
     type: str
     printed_name: str
