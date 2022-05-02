@@ -6,7 +6,7 @@ from src.domain.entities import Product
 
 
 class GetProductsByDayInterface(ABC):
-    """Abstract method for Get Product By Day use case"""
+    """Abstract method for get product by day use case"""
 
     @abstractmethod
     def get_products_by_day(

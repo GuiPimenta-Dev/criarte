@@ -10,6 +10,11 @@ class Client(BaseModel):
     state: str
 
 
+class Status(BaseModel):
+    cover: bool
+    core: bool
+
+
 class Product(BaseModel):
     id: UUID4
     type: str
@@ -20,5 +25,4 @@ class Product(BaseModel):
     payment: Literal["pix", "credit_card", "bank_slip"]
     day: date
     client: Client
-    cover: bool = False
-    core: bool = False
+    status: Status = Status(cover=False, core=False)

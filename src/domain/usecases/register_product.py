@@ -5,7 +5,7 @@ from src.domain.entities import Product
 
 
 class RegisterProductInterface(ABC):
-    """Abstract method for domain use cases"""
+    """Abstract method for register product use case"""
 
     @abstractmethod
     def register_product(product: ProductDTO) -> Product:

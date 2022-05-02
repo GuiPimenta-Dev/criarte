@@ -1,13 +1,9 @@
 from datetime import date
 
 import pytest
-from faker import Faker
-
 from src.infra.test.product_spy import ProductRepositorySpy
 
 from .register_product import RegisterProduct
-
-faker = Faker()
 
 
 def test_register_new_product(product):
@@ -18,8 +14,8 @@ def test_register_new_product(product):
     product_registered = product_repository.insert_product_params[date.today()][0]
 
     assert product_registered.id
-    assert product_registered.cover is False
-    assert product_registered.core is False
+    assert product_registered.status.cover is False
+    assert product_registered.status.core is False
 
 
 def test_max_products_in_a_day_should_be_10(product):
