@@ -1,0 +1,113 @@
+from datetime import date
+
+from faker import Faker
+from src.data import StatusDTO
+from src.infra.config import DBConnectionHandler
+from src.infra.repository.product_repository import ProductRepository
+
+faker = Faker()
+product_repository = ProductRepository()
+db_connection_handler = DBConnectionHandler()
+
+
+def test_insert_product(product):
+
+    product_repository.insert_product(product=product)
+    product_id = str(product.id)
+
+    engine = db_connection_handler.get_engine()
+    result = engine.execute(
+        f"SELECT * FROM products WHERE id = '{product_id}';"
+    ).fetchone()
+
+    engine.execute(f"DELETE FROM products WHERE id='{product_id}';")
+
+    assert product_id == result.id
+    assert product.type == result.type
+    assert product.printed_name == result.printed_name
+    assert product.theme == result.theme
+    assert product.price == result.price
+    assert product.sex == result.sex
+    assert product.payment == result.payment
+    assert str(product.day) == result.day
+    assert product.client.name == result.client_name
+    assert product.client.address == result.client_address
+    assert product.client.state == result.client_state
+    assert product.status.cover == result.cover_status
+    assert product.status.core == result.core_status
+
+
+def test_select_products_in_specific_day_must_be_5(products):
+
+    ids = []
+    TODAY_RECORDS = 5
+    for _ in range(TODAY_RECORDS):
+        product = products()
+        ids.append(str(product.id))
+        product_repository.insert_product(product=product)
+
+    results = product_repository.select_products_in_specific_day(day=date.today())
+
+    engine = db_connection_handler.get_engine()
+    for id in ids:
+        engine.execute(f"DELETE FROM products WHERE id='{id}';")
+
+    assert len(results) == TODAY_RECORDS
+
+
+def test_is_day_limit_reached_must_be_False(products):
+
+    ids = []
+    TODAY_RECORDS = 10
+    for _ in range(TODAY_RECORDS):
+        product = products()
+        ids.append(str(product.id))
+        product_repository.insert_product(product=product)
+
+    result = product_repository.is_day_limit_reached(day=date.today())
+
+    engine = db_connection_handler.get_engine()
+    for id in ids:
+        engine.execute(f"DELETE FROM products WHERE id='{id}';")
+
+    assert result is False
+
+
+def test_is_day_limit_reached_must_be_True(products):
+
+    ids = []
+    TODAY_RECORDS = 11
+    for _ in range(TODAY_RECORDS):
+        product = products()
+        ids.append(str(product.id))
+        product_repository.insert_product(product=product)
+
+    result = product_repository.is_day_limit_reached(day=date.today())
+
+    engine = db_connection_handler.get_engine()
+    for id in ids:
+        engine.execute(f"DELETE FROM products WHERE id='{id}';")
+
+    assert result is True
+
+
+def test_update_product_status(product):
+
+    product_repository.insert_product(product=product)
+
+    product_status = [(True, False), (False, True), (True, True), (False, False)]
+    engine = db_connection_handler.get_engine()
+
+    for status in product_status:
+        cover_status, core_status = status
+        product_repository.update_product_status(
+            id=str(product.id), status=StatusDTO(cover=cover_status, core=core_status)
+        )
+        result = engine.execute(
+            f"SELECT * FROM products WHERE id = '{str(product.id)}';"
+        ).fetchone()
+
+        assert result.cover_status == cover_status
+        assert result.core_status == core_status
+
+    engine.execute(f"DELETE FROM products WHERE id='{product.id}';")

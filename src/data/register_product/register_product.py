@@ -13,6 +13,7 @@ class RegisterProduct(RegisterProductInterface):
         self.__repository = repository
 
     def register_product(self, product: ProductDTO) -> None:
+        """Register product concrete method"""
         if self.__repository.is_day_limit_reached(day=product.day):
             raise Exception("Day limit exceeded")
 

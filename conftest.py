@@ -1,5 +1,6 @@
 from datetime import date
 from random import choice
+from typing import Callable
 from uuid import uuid4
 
 import pytest
@@ -42,3 +43,21 @@ def product(product_dto: ProductDTO) -> Product:
         day=product_dto.day,
         client=product_dto.client,
     )
+
+
+@pytest.fixture()
+def products(product_dto: ProductDTO) -> Callable:
+    def return_product():
+        return Product(
+            id=uuid4(),
+            type=faker.name(),
+            printed_name=faker.name(),
+            theme=faker.sentence(),
+            price=faker.random_number(),
+            sex=product_dto.sex,
+            payment=product_dto.payment,
+            day=product_dto.day,
+            client=product_dto.client,
+        )
+
+    return return_product
