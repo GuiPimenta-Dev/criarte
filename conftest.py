@@ -1,5 +1,5 @@
 from datetime import date
-from random import choice
+from random import choice, randint
 from typing import Callable
 from uuid import uuid4
 
@@ -7,7 +7,7 @@ import pytest
 from faker import Faker
 
 from src.data import ClientDTO, ProductDTO
-from src.domain.entity.product import Product
+from src.domain.entity.product import CAPACITY, Product, WorkDay
 
 faker = Faker()
 
@@ -40,14 +40,14 @@ def product(product_dto: ProductDTO) -> Product:
         price=product_dto.price,
         sex=product_dto.sex,
         payment=product_dto.payment,
-        day=product_dto.day,
+        day=WorkDay(date=product_dto.day, products=randint(0, CAPACITY)),
         client=product_dto.client,
     )
 
 
 @pytest.fixture()
 def products(product_dto: ProductDTO) -> Callable:
-    def return_product():
+    def get_product():
         return Product(
             id=uuid4(),
             type=faker.name(),
@@ -56,8 +56,8 @@ def products(product_dto: ProductDTO) -> Callable:
             price=faker.random_number(),
             sex=product_dto.sex,
             payment=product_dto.payment,
-            day=product_dto.day,
+            day=WorkDay(date=product_dto.day, products=randint(0, CAPACITY)),
             client=product_dto.client,
         )
 
-    return return_product
+    return get_product

@@ -29,7 +29,7 @@ def test_insert_product(product):
     assert product.price == result.price
     assert product.sex == result.sex
     assert product.payment == result.payment
-    assert str(product.day) == result.day
+    assert str(product.day.date) == result.day
     assert product.client.name == result.client_name
     assert product.client.address == result.client_address
     assert product.client.state == result.client_state
@@ -40,8 +40,7 @@ def test_insert_product(product):
 def test_select_products_in_specific_day_must_be_5(products):
 
     ids = []
-    TODAY_RECORDS = 5
-    for _ in range(TODAY_RECORDS):
+    for _ in range(5):
         product = products()
         ids.append(str(product.id))
         product_repository.insert_product(product=product)
@@ -52,43 +51,24 @@ def test_select_products_in_specific_day_must_be_5(products):
     for id in ids:
         engine.execute(f"DELETE FROM products WHERE id='{id}';")
 
-    assert len(results) == TODAY_RECORDS
+    assert len(results) == 5
 
 
-def test_is_day_limit_reached_must_be_False(products):
+def test_products_in_a_day(products):
 
     ids = []
-    TODAY_RECORDS = 10
-    for _ in range(TODAY_RECORDS):
+    for _ in range(10):
         product = products()
         ids.append(str(product.id))
         product_repository.insert_product(product=product)
 
-    result = product_repository.is_day_limit_reached(day=date.today())
+    result = product_repository.products_in_a_day(day=date.today())
 
     engine = db_connection_handler.get_engine()
     for id in ids:
         engine.execute(f"DELETE FROM products WHERE id='{id}';")
 
-    assert result is False
-
-
-def test_is_day_limit_reached_must_be_True(products):
-
-    ids = []
-    TODAY_RECORDS = 11
-    for _ in range(TODAY_RECORDS):
-        product = products()
-        ids.append(str(product.id))
-        product_repository.insert_product(product=product)
-
-    result = product_repository.is_day_limit_reached(day=date.today())
-
-    engine = db_connection_handler.get_engine()
-    for id in ids:
-        engine.execute(f"DELETE FROM products WHERE id='{id}';")
-
-    assert result is True
+    assert result == 10
 
 
 def test_update_product_status(product):

@@ -37,13 +37,10 @@ class ProductRepository(ProductRepositoryInterface):
             return db_connection.session.query(ProductEntity).filter_by(day=day).all()
 
     @classmethod
-    def is_day_limit_reached(cls, day: date) -> bool:
+    def products_in_a_day(cls, day: date) -> int:
 
         with DBConnectionHandler() as db_connection:
-            return (
-                len(db_connection.session.query(ProductEntity).filter_by(day=day).all())
-                > 10
-            )
+            return db_connection.session.query(ProductEntity).filter_by(day=day).count()
 
     @classmethod
     def update_product_status(cls, id: uuid4, status: StatusDTO) -> bool:

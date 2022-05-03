@@ -19,9 +19,9 @@ class ProductRepositoryInterface(ABC):
         raise Exception("Should implement method select_products_in_specific_day")
 
     @abstractmethod
-    def is_day_limit_reached(self, day: date) -> bool:
-        raise Exception("Should implement method is_day_limit_reached")
+    def products_in_a_day(self, day: date) -> int:
+        raise Exception("Should implement method products_in_a_day")
 
     @abstractmethod
-    def update_product_status(self, id: uuid4, status: StatusDTO) -> bool:
+    def update_product_status(self, id: uuid4, status: StatusDTO) -> None:
         raise Exception("Should implement method update_product_status")

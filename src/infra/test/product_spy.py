@@ -15,7 +15,7 @@ class ProductRepositorySpy(ProductRepositoryInterface):
         self.product_by_id_params = {}
 
     def insert_product(self, product: Product) -> None:
-        day = product.day
+        day = product.day.date
         if day not in self.product_by_day_params:
             self.product_by_day_params[day] = [product]
         else:
@@ -23,10 +23,10 @@ class ProductRepositorySpy(ProductRepositoryInterface):
 
         self.product_by_id_params[product.id] = product
 
-    def is_day_limit_reached(self, day: date) -> bool:
+    def products_in_a_day(self, day: date) -> int:
         if day in self.product_by_day_params:
-            return len(self.product_by_day_params[day]) >= 10
-        return False
+            return len(self.product_by_day_params[day])
+        return 0
 
     def select_products_in_specific_day(self, day: date) -> List[Product]:
         return self.product_by_day_params.get(day, [])

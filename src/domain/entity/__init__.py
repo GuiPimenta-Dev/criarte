@@ -1,1 +1,1 @@
-from .product import Product
+from .product import CAPACITY, Product, WorkDay
