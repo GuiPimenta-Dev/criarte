@@ -1,9 +1,9 @@
 from datetime import date
 from typing import List
 
-from src.domain.entities.product import Product
+from src.domain.entity.product import Product
 from src.domain.repository.product import ProductRepositoryInterface
-from src.domain.usecases.get_products_by_day import GetProductsByDayInterface
+from src.domain.usecase.get_products_by_day import GetProductsByDayInterface
 
 
 class GetProductsByDay(GetProductsByDayInterface):

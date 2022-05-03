@@ -1,9 +1,9 @@
 from uuid import uuid4
 
 from src.data import ProductDTO
-from src.domain.entities.product import Product
+from src.domain.entity.product import Product
 from src.domain.repository.product import ProductRepositoryInterface
-from src.domain.usecases import RegisterProductInterface
+from src.domain.usecase import RegisterProductInterface
 
 
 class RegisterProduct(RegisterProductInterface):

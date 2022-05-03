@@ -3,11 +3,11 @@ from typing import List
 from uuid import uuid4
 
 from src.data import StatusDTO
-from src.domain.entities import Product
+from src.domain.entity import Product
 from src.domain.repository import ProductRepositoryInterface
-from src.infra.adapters import adapt_product
+from src.infra.adapter import adapt_product
 from src.infra.config.db_base import DBConnectionHandler
-from src.infra.entities.products_entity import ProductEntity
+from src.infra.entity.products_entity import ProductEntity
 
 
 class ProductRepository(ProductRepositoryInterface):

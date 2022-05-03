@@ -4,7 +4,7 @@ from typing import List
 from uuid import uuid4
 
 from src.data import StatusDTO
-from src.domain.entities.product import Product
+from src.domain.entity.product import Product
 
 
 class ProductRepositoryInterface(ABC):

@@ -1,6 +1,6 @@
 from typing import Dict
 
-from src.domain.entities import Product
+from src.domain.entity import Product
 
 
 def adapt_product(product: Product) -> Dict:

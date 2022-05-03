@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from src.data import ProductDTO
-from src.domain.entities import Product
+from src.domain.entity import Product
 
 
 class RegisterProductInterface(ABC):

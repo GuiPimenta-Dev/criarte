@@ -7,7 +7,7 @@ import pytest
 from faker import Faker
 
 from src.data import ClientDTO, ProductDTO
-from src.domain.entities.product import Product
+from src.domain.entity.product import Product
 
 faker = Faker()
 
