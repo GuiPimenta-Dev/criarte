@@ -64,9 +64,13 @@ def products(product_dto: ProductDTO) -> Callable:
     return get_product
 
 
+@pytest.fixture()
+def engine():
+    db_connection_handler = DBConnectionHandler("sqlite:///in_memory.db")
+    return db_connection_handler.get_engine()
+
+
 @pytest.fixture(autouse=True)
-def clean_up():
-    db_connection_handler = DBConnectionHandler()
-    engine = db_connection_handler.get_engine()
+def clean_up(engine):
     yield
     engine.execute("DELETE FROM products;")

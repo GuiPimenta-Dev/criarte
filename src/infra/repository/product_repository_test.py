@@ -6,16 +6,15 @@ from src.infra.config import DBConnectionHandler
 from src.infra.repository import ProductRepository
 
 faker = Faker()
-db_connection_handler = DBConnectionHandler()
-product_repository = ProductRepository(db_connection=db_connection_handler)
+db_connection_handler = DBConnectionHandler("sqlite:///in_memory.db")
+product_repository = ProductRepository(db_connection_handler)
 
 
-def test_insert_product(product):
+def test_insert_product(product, engine):
 
     product_repository.insert_product(product=product)
     product_id = str(product.id)
 
-    engine = db_connection_handler.get_engine()
     result = engine.execute(
         f"SELECT * FROM products WHERE id = '{product_id}';"
     ).fetchone()
@@ -61,12 +60,11 @@ def test_products_in_a_day(products):
     assert result == 10
 
 
-def test_update_product_status(product):
+def test_update_product_status(product, engine):
 
     product_repository.insert_product(product=product)
 
     product_status = [(True, False), (False, True), (True, True), (False, False)]
-    engine = db_connection_handler.get_engine()
 
     for status in product_status:
         cover_status, core_status = status
