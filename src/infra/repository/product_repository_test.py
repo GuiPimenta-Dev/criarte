@@ -6,8 +6,8 @@ from src.infra.config import DBConnectionHandler
 from src.infra.repository import ProductRepository
 
 faker = Faker()
-product_repository = ProductRepository()
 db_connection_handler = DBConnectionHandler()
+product_repository = ProductRepository(db_connection=db_connection_handler)
 
 
 def test_insert_product(product):

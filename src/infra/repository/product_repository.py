@@ -13,10 +13,12 @@ from src.infra.entity.products_entity import ProductEntity
 class ProductRepository(ProductRepositoryInterface):
     """Product repository implementation"""
 
-    @classmethod
-    def insert_product(cls, product: Product) -> None:
+    def __init__(self, db_connection: DBConnectionHandler) -> None:
+        self.db_connection = db_connection
 
-        with DBConnectionHandler() as db_connection:
+    def insert_product(self, product: Product) -> None:
+
+        with self.db_connection as db_connection:
             try:
                 adapted_product = adapt_product(product=product)
                 new_product = ProductEntity(**adapted_product)
@@ -30,22 +32,19 @@ class ProductRepository(ProductRepositoryInterface):
             finally:
                 db_connection.session.close()
 
-    @classmethod
-    def select_products_in_specific_day(cls, day: str) -> List[Product]:
+    def select_products_in_specific_day(self, day: str) -> List[Product]:
 
-        with DBConnectionHandler() as db_connection:
+        with self.db_connection as db_connection:
             return db_connection.session.query(ProductEntity).filter_by(day=day).all()
 
-    @classmethod
-    def products_in_a_day(cls, day: date) -> int:
+    def products_in_a_day(self, day: date) -> int:
 
-        with DBConnectionHandler() as db_connection:
+        with self.db_connection as db_connection:
             return db_connection.session.query(ProductEntity).filter_by(day=day).count()
 
-    @classmethod
-    def update_product_status(cls, id: uuid4, status: StatusDTO) -> bool:
+    def update_product_status(self, id: uuid4, status: StatusDTO) -> bool:
 
-        with DBConnectionHandler() as db_connection:
+        with self.db_connection as db_connection:
             try:
                 db_connection.session.query(ProductEntity).filter_by(id=id).update(
                     {
