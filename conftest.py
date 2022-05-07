@@ -8,6 +8,7 @@ from faker import Faker
 
 from src.data import ClientDTO, ProductDTO
 from src.domain.entity.product import CAPACITY, Product, WorkDay
+from src.infra.config import DBConnectionHandler
 
 faker = Faker()
 
@@ -61,3 +62,11 @@ def products(product_dto: ProductDTO) -> Callable:
         )
 
     return get_product
+
+
+@pytest.fixture(autouse=True)
+def clean_up():
+    db_connection_handler = DBConnectionHandler()
+    engine = db_connection_handler.get_engine()
+    yield
+    engine.execute("DELETE FROM products;")

@@ -5,14 +5,13 @@ from sqlalchemy.orm import sessionmaker
 class DBConnectionHandler:
     """Sqlalchemy database connection"""
 
-    def __init__(self):
-        self.__connection_string = "sqlite:///storage.db"
+    def __init__(self, connection_string: str = "sqlite:///storage.db"):
+        self.__connection_string = connection_string
         self.session = None
 
     def get_engine(self):
         """Return connection Engine"""
-        engine = create_engine(self.__connection_string)
-        return engine
+        return create_engine(self.__connection_string)
 
     def __enter__(self):
         engine = create_engine(self.__connection_string)

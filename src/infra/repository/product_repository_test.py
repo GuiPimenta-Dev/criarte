@@ -3,7 +3,7 @@ from datetime import date
 from faker import Faker
 from src.data import StatusDTO
 from src.infra.config import DBConnectionHandler
-from src.infra.repository.product_repository import ProductRepository
+from src.infra.repository import ProductRepository
 
 faker = Faker()
 product_repository = ProductRepository()
@@ -19,8 +19,6 @@ def test_insert_product(product):
     result = engine.execute(
         f"SELECT * FROM products WHERE id = '{product_id}';"
     ).fetchone()
-
-    engine.execute(f"DELETE FROM products WHERE id='{product_id}';")
 
     assert product_id == result.id
     assert product.type == result.type
@@ -47,10 +45,6 @@ def test_select_products_in_specific_day_must_be_5(products):
 
     results = product_repository.select_products_in_specific_day(day=date.today())
 
-    engine = db_connection_handler.get_engine()
-    for id in ids:
-        engine.execute(f"DELETE FROM products WHERE id='{id}';")
-
     assert len(results) == 5
 
 
@@ -63,10 +57,6 @@ def test_products_in_a_day(products):
         product_repository.insert_product(product=product)
 
     result = product_repository.products_in_a_day(day=date.today())
-
-    engine = db_connection_handler.get_engine()
-    for id in ids:
-        engine.execute(f"DELETE FROM products WHERE id='{id}';")
 
     assert result == 10
 
@@ -89,5 +79,3 @@ def test_update_product_status(product):
 
         assert result.cover_status == cover_status
         assert result.core_status == core_status
-
-    engine.execute(f"DELETE FROM products WHERE id='{product.id}';")
