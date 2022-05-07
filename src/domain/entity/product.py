@@ -1,27 +1,13 @@
-# pylint: disable=no-self-argument,no-self-use,no-name-in-module
-from datetime import date
 from typing import Literal
 
-from pydantic import UUID4, BaseModel, validator
+from pydantic import UUID4, BaseModel
 from src.data import ClientDTO, StatusDTO
-
-CAPACITY = 10
-
-
-class WorkDay(BaseModel):
-    date: date
-    products: int
-
-    @validator("products")
-    def check_if_day_capacity_is_full(cls, value):
-
-        if value > CAPACITY:
-            raise Exception("Day capacity is full")
+from src.domain.entity.day import Day
 
 
 class Product(BaseModel):
     id: UUID4
-    day: WorkDay
+    day: Day
     type: str
     printed_name: str
     theme: str

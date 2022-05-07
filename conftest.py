@@ -7,7 +7,8 @@ import pytest
 from faker import Faker
 
 from src.data import ClientDTO, ProductDTO
-from src.domain.entity.product import CAPACITY, Product, WorkDay
+from src.domain.entity.day import CAPACITY, Day
+from src.domain.entity.product import Product
 from src.infra.config import DBConnectionHandler
 
 faker = Faker()
@@ -41,7 +42,7 @@ def product(product_dto: ProductDTO) -> Product:
         price=product_dto.price,
         sex=product_dto.sex,
         payment=product_dto.payment,
-        day=WorkDay(date=product_dto.day, products=randint(0, CAPACITY)),
+        day=Day(date=product_dto.day, products=randint(0, CAPACITY)),
         client=product_dto.client,
     )
 
@@ -57,7 +58,7 @@ def products(product_dto: ProductDTO) -> Callable:
             price=faker.random_number(),
             sex=product_dto.sex,
             payment=product_dto.payment,
-            day=WorkDay(date=product_dto.day, products=randint(0, CAPACITY)),
+            day=Day(date=product_dto.day, products=randint(0, CAPACITY)),
             client=product_dto.client,
         )
 

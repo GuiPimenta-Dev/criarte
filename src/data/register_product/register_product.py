@@ -1,7 +1,8 @@
 from uuid import uuid4
 
 from src.data import ProductDTO
-from src.domain.entity.product import Product, WorkDay
+from src.domain.entity.day import Day
+from src.domain.entity.product import Product
 from src.domain.repository.product import ProductRepositoryInterface
 from src.domain.usecase import RegisterProductInterface
 
@@ -19,7 +20,7 @@ class RegisterProduct(RegisterProductInterface):
 
         product = Product(
             id=uuid4(),
-            day=WorkDay(date=product.day, products=products_in_day),
+            day=Day(date=product.day, products=products_in_day),
             type=product.type,
             printed_name=product.printed_name,
             theme=product.theme,
