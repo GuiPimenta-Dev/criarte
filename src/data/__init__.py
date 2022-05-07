@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods,no-name-in-module
 from datetime import date
 
 from pydantic import BaseModel

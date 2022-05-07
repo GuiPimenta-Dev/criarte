@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from datetime import date
 from typing import List
 from uuid import uuid4
