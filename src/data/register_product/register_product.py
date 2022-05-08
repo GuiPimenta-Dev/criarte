@@ -4,13 +4,13 @@ from src.data import ProductDTO
 from src.domain.entity.day import Day
 from src.domain.entity.product import Product
 from src.domain.repository.product import ProductRepositoryInterface
-from src.domain.usecase import RegisterProductInterface
+from src.domain.use_cases import RegisterProductInterface
 
 
 class RegisterProduct(RegisterProductInterface):
     """Class to register product use case"""
 
-    def __init__(self, repository: ProductRepositoryInterface) -> None:
+    def __init__(self, repository: ProductRepositoryInterface) -> Product:
         self.__repository = repository
 
     def register_product(self, product: ProductDTO) -> None:
@@ -31,5 +31,3 @@ class RegisterProduct(RegisterProductInterface):
         )
 
         self.__repository.insert_product(product=product)
-
-        return product

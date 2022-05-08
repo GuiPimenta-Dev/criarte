@@ -2,7 +2,7 @@ from uuid import uuid4
 
 from src.data import StatusDTO
 from src.domain.repository.product import ProductRepositoryInterface
-from src.domain.usecase.update_product_status import UpdateProductStatusInterface
+from src.domain.use_cases.update_product_status import UpdateProductStatusInterface
 
 
 class UpdateProductStatus(UpdateProductStatusInterface):

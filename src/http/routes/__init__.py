@@ -1,3 +1,1 @@
-from fastapi import APIRouter, Request
-
-api = APIRouter()
+from .product_routes import product_routes
