@@ -37,3 +37,6 @@ class ProductRepositorySpy(ProductRepositoryInterface):
     def update_product_status(self, id: uuid4, status: StatusDTO) -> None:
         if id in self.product_by_id_params:
             self.product_by_id_params[id].status = status
+
+    def delete_product(self, id: uuid4) -> None:
+        del self.product_by_id_params[id]

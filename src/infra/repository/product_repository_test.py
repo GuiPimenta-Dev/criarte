@@ -88,3 +88,21 @@ def test_update_product_status(product, engine):
 
         assert result.cover_status == cover_status
         assert result.core_status == core_status
+
+
+def test_delete_product_status(product, engine):
+
+    product_repository.insert_product(product=product)
+    result = engine.execute(
+        f"SELECT * FROM products WHERE id = '{str(product.id)}';"
+    ).fetchone()
+
+    assert result
+
+    product_repository.delete_product(str(product.id))
+
+    result = engine.execute(
+        f"SELECT * FROM products WHERE id = '{str(product.id)}';"
+    ).fetchone()
+
+    assert not result

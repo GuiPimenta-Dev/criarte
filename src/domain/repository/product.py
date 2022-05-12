@@ -29,3 +29,7 @@ class ProductRepositoryInterface(ABC):
     @abstractmethod
     def update_product_status(self, id: uuid4, status: StatusDTO) -> None:
         raise Exception("Should implement method update_product_status")
+
+    @abstractmethod
+    def delete_product(self, id: uuid4) -> None:
+        raise Exception("Should implement method delete_product")

@@ -1,4 +1,4 @@
-from typing import List, TypedDict
+from typing import Dict, List, TypedDict, Union
 
 from fastapi import APIRouter, status
 from src.controllers.presenters import PresentedProduct
@@ -8,6 +8,7 @@ from src.http.composer import (
     compose_select_products_by_day,
     compose_update_product_status,
 )
+from src.http.composer.delete_product import compose_delete_product
 from src.http.errors.http_error import handle_error
 
 product_routes = APIRouter()
@@ -30,7 +31,7 @@ class ProductsByDay(TypedDict):
 
 
 class Response(TypedDict):
-    data: ProductsByDay
+    data: Union[ProductsByDay, Dict]
 
 
 @product_routes.get("/api/v1/products", response_model=Response)
@@ -49,6 +50,17 @@ async def update_product_status(id: str, status: StatusDTO) -> None:
 
     try:
         controller.handle(id=id, status_dto=status)
+
+    except Exception as error:
+        handle_error(error)
+
+
+@product_routes.delete("/api/v1/products/{id}")
+async def delete_product(id: str) -> None:
+    controller = compose_delete_product()
+
+    try:
+        controller.handle(id=id)
 
     except Exception as error:
         handle_error(error)

@@ -1,3 +1,4 @@
+from .delete_product import compose_delete_product
 from .register_product_composer import compose_register_product
 from .select_products_grouped_by_days import compose_select_products_by_day
 from .update_product_status import compose_update_product_status

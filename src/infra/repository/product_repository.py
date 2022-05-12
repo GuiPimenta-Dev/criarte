@@ -73,3 +73,16 @@ class ProductRepository(ProductRepositoryInterface):
                 raise
             finally:
                 db_connection.session.close()
+
+    def delete_product(self, id: uuid4) -> None:
+        with self.db_connection as db_connection:
+            try:
+                db_connection.session.query(ProductEntity).filter_by(id=id).delete()
+
+                db_connection.session.commit()
+
+            except:
+                db_connection.session.rollback()
+                raise
+            finally:
+                db_connection.session.close()
