@@ -1,6 +1,5 @@
 # pylint: disable=no-self-argument
 
-from attr import s
 from pydantic import BaseModel, validator
 from src.infra.entity.products_entity import ProductEntity
 

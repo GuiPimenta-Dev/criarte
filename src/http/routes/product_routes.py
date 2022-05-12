@@ -1,4 +1,7 @@
+from typing import List, TypedDict
+
 from fastapi import APIRouter, status
+from src.controllers.presenters import PresentedProduct
 from src.data import ProductDTO, StatusDTO
 from src.http.composer import (
     compose_register_product,
@@ -21,7 +24,16 @@ async def register_product(product_dto: ProductDTO):
         handle_error(error)
 
 
-@product_routes.get("/api/v1/products")
+class ProductsByDay(TypedDict):
+    products: List[PresentedProduct]
+    quantity: int
+
+
+class Response(TypedDict):
+    data: ProductsByDay
+
+
+@product_routes.get("/api/v1/products", response_model=Response)
 async def get_products_grouped_by_day():
     controller = compose_select_products_by_day()
     try:
