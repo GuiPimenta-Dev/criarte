@@ -55,7 +55,7 @@ class ProductRepository(ProductRepositoryInterface):
         with self.db_connection as db_connection:
             return db_connection.session.query(ProductEntity).filter_by(day=day).count()
 
-    def update_product_status(self, id: uuid4, status: StatusDTO) -> bool:
+    def update_product_status(self, id: uuid4, status: StatusDTO) -> None:
 
         with self.db_connection as db_connection:
             try:

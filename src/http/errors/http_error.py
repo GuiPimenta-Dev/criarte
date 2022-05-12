@@ -4,6 +4,7 @@ from src.errors import CustomError
 
 
 def handle_error(error: Exception) -> None:
+    print(error)
     if isinstance(error, ValidationError):
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
 

@@ -1,7 +1,11 @@
 from fastapi import APIRouter, Request, status
-from src.data import ClientDTO, ProductDTO
+from src.data import ClientDTO, ProductDTO, StatusDTO
 from src.http.adapter import request_adapter
-from src.http.composer import compose_register_product, compose_select_products_by_day
+from src.http.composer import (
+    compose_register_product,
+    compose_select_products_by_day,
+    compose_update_product_status,
+)
 from src.http.errors.http_error import handle_error
 
 product_routes = APIRouter()
@@ -25,6 +29,19 @@ async def get_products_grouped_by_day():
     controller = compose_select_products_by_day()
     try:
         return controller.handle()
+
+    except Exception as error:
+        handle_error(error)
+
+
+@product_routes.put("/api/v1/products/{id}/status")
+async def update_product_status(id: str, request: Request):
+    req = await request_adapter(request=request)
+    controller = compose_update_product_status()
+
+    try:
+        status = StatusDTO(**req["body"])
+        return controller.handle(id=id, status_dto=status)
 
     except Exception as error:
         handle_error(error)
