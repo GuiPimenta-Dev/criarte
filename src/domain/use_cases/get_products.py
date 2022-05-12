@@ -9,8 +9,12 @@ class GetProductsByDayInterface(ABC):
     """Abstract method for get product by day use case"""
 
     @abstractmethod
-    def get_products_by_day(
+    def select_products_grouped_by_day(self) -> List[Product]:
+        raise Exception("Should implement method select_products_grouped_by_day")
+
+    @abstractmethod
+    def select_products_in_a_day(
         self,
         day: date,
     ) -> List[Product]:
-        raise Exception("Should implement method get_products_by_day")
+        raise Exception("Should implement method select_products_in_a_day")

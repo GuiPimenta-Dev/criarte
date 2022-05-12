@@ -1,5 +1,7 @@
 # pylint: disable=import-error
 from datetime import date
+from itertools import groupby
+from operator import attrgetter
 from typing import List
 from uuid import uuid4
 
@@ -32,6 +34,16 @@ class ProductRepository(ProductRepositoryInterface):
                 raise
             finally:
                 db_connection.session.close()
+
+    def select_products_grouped_by_day(self) -> List[Product]:
+
+        with self.db_connection as db_connection:
+            query = (
+                db_connection.session.query(ProductEntity)
+                .order_by(ProductEntity.day)
+                .all()
+            )
+            return {str(k): list(g) for k, g in groupby(query, attrgetter("day"))}
 
     def select_products_in_specific_day(self, day: str) -> List[Product]:
 

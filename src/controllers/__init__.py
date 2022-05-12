@@ -1,0 +1,2 @@
+from .get_products_by_day import GetProductsByDayController
+from .register_product import RegisterProductController

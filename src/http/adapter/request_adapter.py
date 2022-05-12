@@ -1,9 +1,10 @@
 import contextlib
+from typing import Dict
 
 from fastapi import Request
 
 
-async def request_adapter(request: Request):
+async def request_adapter(request: Request) -> Dict:
 
     body = None
 

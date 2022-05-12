@@ -28,6 +28,9 @@ class ProductRepositorySpy(ProductRepositoryInterface):
             return len(self.product_by_day_params[day])
         return 0
 
+    def select_products_grouped_by_day(self):
+        return self.product_by_day_params
+
     def select_products_in_specific_day(self, day: date) -> List[Product]:
         return self.product_by_day_params.get(day, [])
 

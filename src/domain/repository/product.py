@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from datetime import date
-from typing import List
+from typing import Dict, List
 from uuid import uuid4
 
 from src.data import StatusDTO
@@ -13,6 +13,10 @@ class ProductRepositoryInterface(ABC):
     @abstractmethod
     def insert_product(self, product: Product) -> None:
         raise Exception("Should implement method insert_product")
+
+    @abstractmethod
+    def select_products_grouped_by_day(self) -> List[Dict[str, Product]]:
+        raise Exception("Should implement method select_products_grouped_by_day")
 
     @abstractmethod
     def select_products_in_specific_day(self, day: str) -> List[Product]:

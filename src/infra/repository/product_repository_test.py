@@ -2,6 +2,7 @@ from datetime import date
 
 from faker import Faker
 from src.data import StatusDTO
+from src.domain.entity.day import Day
 from src.infra.config import DBConnectionHandler
 from src.infra.repository import ProductRepository
 
@@ -34,12 +35,24 @@ def test_insert_product(product, engine):
     assert product.status.core == result.core_status
 
 
-def test_select_products_in_specific_day_must_be_5(products):
+def test_select_products_grouped_by_day(products):
 
-    ids = []
+    expected_result = []
     for _ in range(5):
         product = products()
-        ids.append(str(product.id))
+        product.day = Day(date=faker.date(), products=faker.random_int(0, 10))
+        expected_result.append(str(product.day.date))
+        product_repository.insert_product(product=product)
+
+    results = product_repository.select_products_grouped_by_day()
+    for result in results:
+        assert result in expected_result
+
+
+def test_select_products_in_specific_day_must_be_5(products):
+
+    for _ in range(5):
+        product = products()
         product_repository.insert_product(product=product)
 
     results = product_repository.select_products_in_specific_day(day=date.today())
@@ -49,10 +62,8 @@ def test_select_products_in_specific_day_must_be_5(products):
 
 def test_products_in_a_day(products):
 
-    ids = []
     for _ in range(10):
         product = products()
-        ids.append(str(product.id))
         product_repository.insert_product(product=product)
 
     result = product_repository.products_in_a_day(day=date.today())
