@@ -1,8 +1,9 @@
 from typing import Dict, List, TypedDict, Union
 
 from fastapi import APIRouter, status
-from src.controllers.presenters import PresentedProduct
+from pydantic import BaseModel
 from src.data import ProductDTO, StatusDTO
+from src.domain.entity import Product
 from src.http.composer import (
     compose_register_product,
     compose_select_products_by_day,
@@ -25,16 +26,17 @@ async def register_product(product_dto: ProductDTO):
         handle_error(error)
 
 
-class ProductsByDay(TypedDict):
-    products: List[PresentedProduct]
-    quantity: int
+class WeekDays(BaseModel):
+    monday: Dict[int, List]
+    tuesday: Dict[int, List]
+    wednesday: Dict[int, List]
+    thursday: Dict[int, List]
+    friday: Dict[int, List]
+    saturday: Dict[int, List]
+    sunday: Dict[int, List]
 
 
-class Response(TypedDict):
-    data: Union[ProductsByDay, Dict]
-
-
-@product_routes.get("/api/v1/products", response_model=Response)
+@product_routes.get("/api/v1/products", response_model=Dict[str, WeekDays])
 async def get_products_grouped_by_day():
     controller = compose_select_products_by_day()
     try:
