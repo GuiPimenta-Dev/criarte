@@ -43,21 +43,22 @@ class GetDays(WeekDaysInterface):
         }
         for week in month:
             for index, day in enumerate(week):
-                match index:
-                    case 0:
-                        week_days["monday"][day] = []
-                    case 1:
-                        week_days["tuesday"][day] = []
-                    case 2:
-                        week_days["wednesday"][day] = []
-                    case 3:
-                        week_days["thursday"][day] = []
-                    case 4:
-                        week_days["friday"][day] = []
-                    case 5:
-                        week_days["saturday"][day] = []
-                    case 6:
-                        week_days["sunday"][day] = []
+                if day != 0:
+                    match index:
+                        case 0:
+                            week_days["monday"][day] = []
+                        case 1:
+                            week_days["tuesday"][day] = []
+                        case 2:
+                            week_days["wednesday"][day] = []
+                        case 3:
+                            week_days["thursday"][day] = []
+                        case 4:
+                            week_days["friday"][day] = []
+                        case 5:
+                            week_days["saturday"][day] = []
+                        case 6:
+                            week_days["sunday"][day] = []
         return week_days
 
     @staticmethod
