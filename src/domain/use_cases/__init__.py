@@ -1,4 +1,5 @@
 from .delete_product import DeleteProductInterface
+from .get_days import GetDaysInterface
 from .get_products import GetProductsByDayInterface
 from .register_product import RegisterProductInterface
 from .update_product_status import UpdateProductStatusInterface
