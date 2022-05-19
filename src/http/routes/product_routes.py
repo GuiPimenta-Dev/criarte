@@ -27,13 +27,13 @@ async def register_product(product_dto: ProductDTO):
 
 
 class WeekDays(BaseModel):
-    monday: Dict[int, List]
-    tuesday: Dict[int, List]
-    wednesday: Dict[int, List]
-    thursday: Dict[int, List]
-    friday: Dict[int, List]
-    saturday: Dict[int, List]
-    sunday: Dict[int, List]
+    monday: List[Dict[int, List]]
+    tuesday: List[Dict[int, List]]
+    wednesday: List[Dict[int, List]]
+    thursday: List[Dict[int, List]]
+    friday: List[Dict[int, List]]
+    saturday: List[Dict[int, List]]
+    sunday: List[Dict[int, List]]
 
 
 @product_routes.get("/api/v1/products", response_model=Dict[str, WeekDays])

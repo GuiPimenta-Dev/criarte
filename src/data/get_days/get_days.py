@@ -33,32 +33,31 @@ class GetDays(WeekDaysInterface):
     @staticmethod
     def __separate_into_week_days(month: List[List[int]]):
         week_days = {
-            "monday": {},
-            "tuesday": {},
-            "wednesday": {},
-            "thursday": {},
-            "friday": {},
-            "saturday": {},
-            "sunday": {},
+            "monday": [],
+            "tuesday": [],
+            "wednesday": [],
+            "thursday": [],
+            "friday": [],
+            "saturday": [],
+            "sunday": [],
         }
         for week in month:
             for index, day in enumerate(week):
-                if day != 0:
-                    match index:
-                        case 0:
-                            week_days["monday"][day] = []
-                        case 1:
-                            week_days["tuesday"][day] = []
-                        case 2:
-                            week_days["wednesday"][day] = []
-                        case 3:
-                            week_days["thursday"][day] = []
-                        case 4:
-                            week_days["friday"][day] = []
-                        case 5:
-                            week_days["saturday"][day] = []
-                        case 6:
-                            week_days["sunday"][day] = []
+                match index:
+                    case 0:
+                        week_days["monday"].append({day: []})
+                    case 1:
+                        week_days["tuesday"].append({day: []})
+                    case 2:
+                        week_days["wednesday"].append({day: []})
+                    case 3:
+                        week_days["thursday"].append({day: []})
+                    case 4:
+                        week_days["friday"].append({day: []})
+                    case 5:
+                        week_days["saturday"].append({day: []})
+                    case 6:
+                        week_days["sunday"].append({day: []})
         return week_days
 
     @staticmethod
@@ -72,6 +71,7 @@ class GetDays(WeekDaysInterface):
             year_month, day = f"{date.year}-{date.month}", date.day
             if year_month in year_week_days:
                 for week_day in year_week_days[year_month].values():
-                    if day in week_day:
-                        week_day[day] = products
+                    for i in week_day:
+                        if day in i:
+                            i[day] = products
         return year_week_days
