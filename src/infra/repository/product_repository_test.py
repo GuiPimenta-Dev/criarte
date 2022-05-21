@@ -6,7 +6,7 @@ from src.infra.config import DBConnectionHandler
 from src.infra.repository import ProductRepository
 
 faker = Faker()
-db_connection_handler = DBConnectionHandler("sqlite:///in_memory.db")
+db_connection_handler = DBConnectionHandler("sqlite:///test.db")
 product_repository = ProductRepository(db_connection_handler)
 
 

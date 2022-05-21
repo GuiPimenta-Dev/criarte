@@ -66,7 +66,7 @@ def products(product_dto: ProductDTO) -> Callable:
 
 @pytest.fixture()
 def engine():
-    db_connection_handler = DBConnectionHandler("sqlite:///in_memory.db")
+    db_connection_handler = DBConnectionHandler("sqlite:///test.db")
     return db_connection_handler.get_engine()
 
 

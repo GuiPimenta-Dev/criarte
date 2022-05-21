@@ -1,5 +1,6 @@
 **/__pycache__
 .pytest_cache
 venv
-in_memory.db
+test.db
+storage.db
 .idea/

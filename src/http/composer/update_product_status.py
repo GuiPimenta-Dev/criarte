@@ -5,7 +5,7 @@ from src.infra.repository import ProductRepository
 
 
 def compose_update_product_status() -> UpdateProductStatusController:
-    database = DBConnectionHandler("sqlite:///in_memory.db")
+    database = DBConnectionHandler("sqlite:///storage.db")
     repository = ProductRepository(database)
     use_case = UpdateProductStatus(repository)
 

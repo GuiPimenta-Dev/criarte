@@ -6,7 +6,7 @@ from src.infra.repository import ProductRepository
 
 
 def compose_select_products_by_day() -> GetProductsByDayController:
-    database = DBConnectionHandler("sqlite:///in_memory.db")
+    database = DBConnectionHandler("sqlite:///storage.db")
     repository = ProductRepository(database)
     use_case = GetProductsByDay(repository=repository, week_days=GetDays())
 
