@@ -15,7 +15,7 @@ class ProductRepositorySpy(ProductRepositoryInterface):
         self.product_by_id_params = {}
 
     def insert_product(self, product: Product) -> None:
-        day = product.day.date
+        day = product.day
         if day not in self.product_by_day_params:
             self.product_by_day_params[day] = [product]
         else:

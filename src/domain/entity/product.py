@@ -1,13 +1,14 @@
+# pylint: disable=no-name-in-module
+from datetime import date
 from typing import Literal
 
 from pydantic import UUID4, BaseModel
 from src.data import ClientDTO, StatusDTO
-from src.domain.entity.day import Day
 
 
 class Product(BaseModel):
     id: UUID4
-    day: Day
+    day: date
     type: str
     printed_name: str
     theme: str

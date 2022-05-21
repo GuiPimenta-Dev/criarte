@@ -1,10 +1,12 @@
 from uuid import uuid4
 
 from src.data import ProductDTO
-from src.domain.entity.day import Day
 from src.domain.entity.product import Product
 from src.domain.repository.product import ProductRepositoryInterface
 from src.domain.use_cases import RegisterProductInterface
+from src.errors import CustomError
+
+MAX_DAY_CAPACITY = 10
 
 
 class RegisterProduct(RegisterProductInterface):
@@ -18,9 +20,12 @@ class RegisterProduct(RegisterProductInterface):
 
         products_in_day = self.__repository.products_in_a_day(day=product.day)
 
+        if products_in_day > MAX_DAY_CAPACITY:
+            raise CustomError(status_code=400, message="The day's capacity is full")
+
         product = Product(
             id=uuid4(),
-            day=Day(date=product.day, products=products_in_day),
+            day=product.day,
             type=product.type,
             printed_name=product.printed_name,
             theme=product.theme,

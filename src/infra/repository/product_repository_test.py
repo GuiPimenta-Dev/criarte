@@ -1,8 +1,7 @@
-from datetime import date
+from datetime import date, datetime
 
 from faker import Faker
 from src.data import StatusDTO
-from src.domain.entity.day import Day
 from src.infra.config import DBConnectionHandler
 from src.infra.repository import ProductRepository
 
@@ -27,7 +26,7 @@ def test_insert_product(product, engine):
     assert product.price == result.price
     assert product.sex == result.sex
     assert product.payment == result.payment
-    assert str(product.day.date) == result.day
+    assert str(product.day) == result.day
     assert product.client.name == result.client_name
     assert product.client.address == result.client_address
     assert product.client.state == result.client_state
@@ -40,8 +39,9 @@ def test_select_products_grouped_by_day(products):
     expected_result = []
     for _ in range(5):
         product = products()
-        product.day = Day(date=faker.date(), products=faker.random_int(0, 10))
-        expected_result.append(str(product.day.date))
+
+        product.day = datetime.strptime(faker.date(), "%Y-%m-%d").date()
+        expected_result.append(str(product.day))
         product_repository.insert_product(product=product)
 
     results = product_repository.select_products_grouped_by_day()

@@ -7,7 +7,7 @@ def adapt_product(product: Product) -> Dict:
 
     return {
         "id": str(product.id),
-        "day": product.day.date,
+        "day": product.day,
         "type": product.type,
         "printed_name": product.printed_name,
         "theme": product.theme,

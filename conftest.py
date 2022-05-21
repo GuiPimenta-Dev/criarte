@@ -1,5 +1,5 @@
+import random
 from datetime import date
-from random import choice, randint
 from typing import Callable
 from uuid import uuid4
 
@@ -7,7 +7,6 @@ import pytest
 from faker import Faker
 
 from src.data import ClientDTO, ProductDTO
-from src.domain.entity.day import CAPACITY, Day
 from src.domain.entity.product import Product
 from src.infra.config import DBConnectionHandler
 
@@ -22,8 +21,8 @@ def product_dto() -> ProductDTO:
         printed_name=faker.name(),
         theme=faker.name(),
         price=faker.random_number(),
-        sex=choice(["male", "female"]),
-        payment=choice(["pix", "credit_card", "bank_slip"]),
+        sex=random.choice(["male", "female"]),
+        payment=random.choice(["pix", "credit_card", "bank_slip"]),
         day=date.today(),
         client=ClientDTO(
             name=faker.name(), address=faker.sentence(), state=faker.name()
@@ -42,7 +41,7 @@ def product(product_dto: ProductDTO) -> Product:
         price=product_dto.price,
         sex=product_dto.sex,
         payment=product_dto.payment,
-        day=Day(date=product_dto.day, products=randint(0, CAPACITY)),
+        day=product_dto.day,
         client=product_dto.client,
     )
 
@@ -58,7 +57,7 @@ def products(product_dto: ProductDTO) -> Callable:
             price=faker.random_number(),
             sex=product_dto.sex,
             payment=product_dto.payment,
-            day=Day(date=product_dto.day, products=randint(0, CAPACITY)),
+            day=product_dto.day,
             client=product_dto.client,
         )
 
