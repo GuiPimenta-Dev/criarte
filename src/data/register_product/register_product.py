@@ -20,7 +20,7 @@ class RegisterProduct(RegisterProductInterface):
 
         products_in_day = self.__repository.products_in_a_day(day=product.day)
 
-        if products_in_day > MAX_DAY_CAPACITY:
+        if products_in_day >= MAX_DAY_CAPACITY:
             raise CustomError(status_code=400, message="The day's capacity is full")
 
         product = Product(

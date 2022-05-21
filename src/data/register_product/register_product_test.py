@@ -31,7 +31,7 @@ def test_error_raises_when_10(product_dto):
     product_repository = ProductRepositorySpy()
     register_product_usecase = RegisterProduct(repository=product_repository)
 
-    for _ in range(11):
+    for _ in range(10):
         register_product_usecase.register_product(product=product_dto)
 
     with pytest.raises(Exception):
