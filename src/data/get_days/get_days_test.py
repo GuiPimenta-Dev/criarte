@@ -23,5 +23,5 @@ def test_calendar_days_with_products(product):
     week_days = GetDays().get_products_by_week_day({today_string: [product]})
 
     assert week_days[first_date_year_month]
-    assert week_days[today_year_month][today_weekday][today.day] != []
+    assert week_days[today_year_month][today_weekday] != []
     assert week_days[last_date_year_month]
