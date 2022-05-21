@@ -5,7 +5,7 @@ from src.infra.repository import ProductRepository
 
 
 def compose_register_product():
-    database = DBConnectionHandler("sqlite:///storage.db")
+    database = DBConnectionHandler("postgresql://postgres:postgres@localhost:5432")
     repository = ProductRepository(database)
     use_case = RegisterProduct(repository)
 
