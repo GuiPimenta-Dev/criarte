@@ -1,11 +1,22 @@
+import os
+
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+load_dotenv()
+
+USER = os.getenv("POSTGRES_USER")
+PASSWORD = os.getenv("POSTGRES_PASSWORD")
 
 
 class DBConnectionHandler:
     """Sqlalchemy database connection"""
 
-    def __init__(self, connection_string: str):
+    def __init__(
+        self,
+        connection_string: str = f"postgresql://{USER}:{PASSWORD}@postgres_db:5432",
+    ):
         self.__connection_string = connection_string
         self.session = None
 
