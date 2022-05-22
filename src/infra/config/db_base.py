@@ -13,10 +13,7 @@ PASSWORD = os.getenv("POSTGRES_PASSWORD")
 class DBConnectionHandler:
     """Sqlalchemy database connection"""
 
-    def __init__(
-        self,
-        connection_string: str = f"postgres://tsguprjeiprhcs:175e95b3f4f7bfa505d278d77fa71e3a41f122420f9957d131cccf673fd62b58@ec2-34-236-94-53.compute-1.amazonaws.com:5432/d76jetv9q8tm70",
-    ):
+    def __init__(self, connection_string: str = "sqlite:///storage.db"):
         self.__connection_string = connection_string
         self.session = None
 
