@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   db:
+    container_name: postgres_db
     image: postgres:14.1-alpine
     restart: always
     env_file:
@@ -10,14 +11,17 @@ services:
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - db:/var/lib/postgresql/data
-
-  docker-python:
+  api:
+    container_name: thaixys
     build:
-      context: .
+      context: ./
+    image: api-image
     ports:
-      - 5005:5002
+      - 5001:5001
     depends_on:
       - db
+    volumes:
+      - './:/app'
 
 volumes:
   db:

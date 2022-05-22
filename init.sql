@@ -1,17 +1,17 @@
-CREATE TABLE IF NOT EXISTS products (
-	id VARCHAR NOT NULL, 
-	type VARCHAR NOT NULL, 
-	printed_name VARCHAR NOT NULL, 
-	theme VARCHAR NOT NULL, 
+
+CREATE TABLE products (
+	id VARCHAR (255) PRIMARY KEY,
+	type VARCHAR (255) NOT NULL, 
+	printed_name VARCHAR (255) NOT NULL, 
+	theme VARCHAR (255) NOT NULL, 
 	price FLOAT NOT NULL, 
-	sex VARCHAR NOT NULL, 
-	payment VARCHAR NOT NULL, 
+	sex VARCHAR (255) NOT NULL, 
+	payment VARCHAR (255) NOT NULL, 
 	day DATE NOT NULL, 
-	client_name VARCHAR NOT NULL, 
-	client_address VARCHAR NOT NULL, 
-	client_state VARCHAR NOT NULL, 
+	client_name VARCHAR (255) NOT NULL, 
+	client_address VARCHAR (255) NOT NULL, 
+	client_state VARCHAR (255) NOT NULL, 
 	cover_status BOOLEAN NOT NULL, 
 	core_status BOOLEAN NOT NULL, 
-	timestamp DATETIME NOT NULL, 
-	PRIMARY KEY (id)
+	timestamp timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL 
 );
