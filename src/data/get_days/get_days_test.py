@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 from src.data.get_days import GetDays
 
 FIRST_MONTH = 1
-LAST_MONTH = 12
+LAST_MONTH = 3
 
 
 def test_calendar_days_with_products(product):

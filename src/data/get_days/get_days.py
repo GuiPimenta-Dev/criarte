@@ -7,7 +7,7 @@ from src.domain.entity.product import Product
 from src.domain.use_cases.get_week_days import WeekDaysInterface
 
 NUMBER_OF_PAST_MONTHS = 1
-NUMBER_OF_NEXT_MONTHS = 13
+NUMBER_OF_NEXT_MONTHS = 4
 
 
 class GetDays(WeekDaysInterface):
