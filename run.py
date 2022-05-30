@@ -6,7 +6,8 @@ if __name__ == "__main__":
     uvicorn.run(
         "src.http.config.http_server:app",
         host="0.0.0.0",
-        port=int(os.getenv("PORT")) or 5001,
+        # port=int(os.getenv("PORT")) or 5001,
+        port=5001,
         reload=True,
         debug=True,
     )

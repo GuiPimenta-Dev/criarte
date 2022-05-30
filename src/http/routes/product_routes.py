@@ -1,15 +1,15 @@
-from typing import Dict, List, TypedDict, Union
+from typing import Dict, List, Optional
 
 from fastapi import APIRouter, status
 from pydantic import BaseModel
 from src.data import ProductDTO, StatusDTO
-from src.domain.entity import Product
 from src.http.composer import (
+    compose_delete_product,
     compose_register_product,
     compose_select_products_by_day,
+    compose_select_products_in_especific_day,
     compose_update_product_status,
 )
-from src.http.composer.delete_product import compose_delete_product
 from src.http.errors.http_error import handle_error
 
 product_routes = APIRouter()
@@ -41,6 +41,16 @@ async def get_products_grouped_by_day():
     controller = compose_select_products_by_day()
     try:
         return controller.handle()
+
+    except Exception as error:
+        handle_error(error)
+
+
+@product_routes.get("/api/v1/days/{day}")
+async def get_products_in_especific_day(day: str):
+    controller = compose_select_products_in_especific_day()
+    try:
+        return controller.handle(day)
 
     except Exception as error:
         handle_error(error)
