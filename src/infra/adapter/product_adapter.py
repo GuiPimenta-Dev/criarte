@@ -14,6 +14,7 @@ def adapt_product(product: Product) -> Dict:
         "price": product.price,
         "sex": product.sex,
         "payment": product.payment,
+        "observations": product.observations,
         "client_name": product.client.name,
         "client_address": product.client.address,
         "client_state": product.client.state,

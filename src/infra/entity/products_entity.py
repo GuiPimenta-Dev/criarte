@@ -16,6 +16,7 @@ class ProductEntity(Base):
     price = Column(Float, nullable=False)
     sex = Column(String, nullable=False)
     payment = Column(String, nullable=False)
+    observations = Column(String, nullable=True)
     day = Column(Date, nullable=False)
     client_name = Column(String, nullable=False)
     client_address = Column(String, nullable=False)
@@ -33,6 +34,7 @@ class ProductEntity(Base):
                             {self.price = },
                             {self.sex = },
                             {self.payment = },
+                            {self.observations = },
                             {self.day = },
                             {self.client_name = },
                             {self.client_address = },

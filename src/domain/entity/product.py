@@ -13,6 +13,7 @@ class Product(BaseModel):
     printed_name: str
     theme: str
     price: float
+    observations: str
     sex: Literal["male", "female"]
     payment: Literal["pix", "credit_card", "bank_slip"]
     client: ClientDTO

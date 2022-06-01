@@ -30,6 +30,7 @@ class RegisterProduct(RegisterProductInterface):
             printed_name=product.printed_name,
             theme=product.theme,
             price=product.price,
+            observations=product.observations,
             sex=product.sex,
             payment=product.payment,
             client=product.client,

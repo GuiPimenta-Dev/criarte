@@ -22,5 +22,6 @@ class ProductDTO(BaseModel):
     price: float
     sex: str
     payment: str
+    observations: str
     day: date
     client: ClientDTO

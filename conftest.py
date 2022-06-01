@@ -23,6 +23,7 @@ def product_dto() -> ProductDTO:
         price=faker.random_number(),
         sex=random.choice(["male", "female"]),
         payment=random.choice(["pix", "credit_card", "bank_slip"]),
+        observations=faker.name(),
         day=date.today(),
         client=ClientDTO(
             name=faker.name(), address=faker.sentence(), state=faker.name()
@@ -41,6 +42,7 @@ def product(product_dto: ProductDTO) -> Product:
         price=product_dto.price,
         sex=product_dto.sex,
         payment=product_dto.payment,
+        observations=product_dto.observations,
         day=product_dto.day,
         client=product_dto.client,
     )
@@ -57,6 +59,7 @@ def products(product_dto: ProductDTO) -> Callable:
             price=faker.random_number(),
             sex=product_dto.sex,
             payment=product_dto.payment,
+            observations=product_dto.observations,
             day=product_dto.day,
             client=product_dto.client,
         )
