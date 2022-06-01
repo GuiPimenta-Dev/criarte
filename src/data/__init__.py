@@ -1,5 +1,6 @@
 # pylint: disable=too-few-public-methods,no-name-in-module
 from datetime import date
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -22,6 +23,6 @@ class ProductDTO(BaseModel):
     price: float
     sex: str
     payment: str
-    observations: str
     day: date
     client: ClientDTO
+    observations: str = ""
