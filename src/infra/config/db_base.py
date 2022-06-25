@@ -7,7 +7,8 @@ class DBConnectionHandler:
 
     def __init__(
         self,
-        connection_string: str = "postgresql://tsguprjeiprhcs:175e95b3f4f7bfa505d278d77fa71e3a41f122420f9957d131cccf673fd62b58@ec2-34-236-94-53.compute-1.amazonaws.com:5432/d76jetv9q8tm70",
+        # connection_string: str = "postgresql://tsguprjeiprhcs:175e95b3f4f7bfa505d278d77fa71e3a41f122420f9957d131cccf673fd62b58@ec2-34-236-94-53.compute-1.amazonaws.com:5432/d76jetv9q8tm70",
+        connection_string: str = "postgres://ygccjjrhcuhehb:879e6cf0cd0098e94aed9ee74d16b56e554e86f541f5ce7a0289290a86dc1fab@ec2-54-157-16-196.compute-1.amazonaws.com:5432/d81btt8epi0uet",
     ):
         self.__connection_string = connection_string
         self.session = None
