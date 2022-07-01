@@ -13,7 +13,7 @@ NUMBER_OF_NEXT_MONTHS = 4
 class GetDays(WeekDaysInterface):
     def get_products_by_week_day(
         self, products_by_day: Dict[str, List[Product]]
-    ) -> Dict[str, Dict[str, Dict[int, List[Product]]]]:
+    ) -> dict[str, dict[str, list]]:
         year_week_days = self.__get_year_week_days()
         return self.__insert_product_into_week_day(
             year_week_days=year_week_days, products_by_day=products_by_day
@@ -33,36 +33,36 @@ class GetDays(WeekDaysInterface):
     @staticmethod
     def __separate_into_week_days(month: List[List[int]]):
         week_days = {
-            "monday": [],
-            "tuesday": [],
-            "wednesday": [],
-            "thursday": [],
-            "friday": [],
-            "saturday": [],
-            "sunday": [],
+            "monday": {"products" : [], "total":0},
+            "tuesday": {"products" : [], "total":0},
+            "wednesday": {"products" : [], "total":0},
+            "thursday": {"products" : [], "total":0},
+            "friday": {"products" : [], "total":0},
+            "saturday": {"products" : [], "total":0},
+            "sunday": {"products" : [], "total":0},
         }
         for week in month:
             for index, day in enumerate(week):
                 match index:
                     case 0:
-                        week_days["monday"].append({day: []})
+                        week_days["monday"]["products"].append({day: []})
                     case 1:
-                        week_days["tuesday"].append({day: []})
+                        week_days["tuesday"]["products"].append({day: []})
                     case 2:
-                        week_days["wednesday"].append({day: []})
+                        week_days["wednesday"]["products"].append({day: []})
                     case 3:
-                        week_days["thursday"].append({day: []})
+                        week_days["thursday"]["products"].append({day: []})
                     case 4:
-                        week_days["friday"].append({day: []})
+                        week_days["friday"]["products"].append({day: []})
                     case 5:
-                        week_days["saturday"].append({day: []})
+                        week_days["saturday"]["products"].append({day: []})
                     case 6:
-                        week_days["sunday"].append({day: []})
+                        week_days["sunday"]["products"].append({day: []})
         return week_days
 
     @staticmethod
     def __insert_product_into_week_day(
-        year_week_days: Dict[str, Dict[str, List]],
+        year_week_days,
         products_by_day: Dict[str, List[Product]],
     ):
 
@@ -71,7 +71,12 @@ class GetDays(WeekDaysInterface):
             year_month, day = f"{date.year}-{date.month}", date.day
             if year_month in year_week_days:
                 for week_day in year_week_days[year_month].values():
-                    for i in week_day:
+                    for i in week_day["products"]:
                         if day in i:
+                            total = 0
+                            for product in products:
+                                total += product.price
                             i[day] = products
+                            week_day["total"] = total
+
         return year_week_days

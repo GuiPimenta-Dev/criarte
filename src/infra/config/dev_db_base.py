@@ -2,13 +2,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-class DBConnectionHandler:
+class DevDBConnectionHandler:
     """Sqlalchemy database connection"""
 
     def __init__(
         self,
-        connection_string: str = "postgresql://ygccjjrhcuhehb:879e6cf0cd0098e94aed9ee74d16b56e554e86f541f5ce7a0289290a86dc1fab@ec2-54-157-16-196.compute-1.amazonaws.com:5432/d81btt8epi0uet",
-    ):
+        connection_string: str = "sqlite:///storage.db"):
         self.__connection_string = connection_string
         self.session = None
 

@@ -48,7 +48,7 @@ class ProductRepository(ProductRepositoryInterface):
     def select_products_in_specific_day(self, day: str) -> List[Product]:
 
         with self.db_connection as db_connection:
-            return db_connection.session.query(ProductEntity).filter_by(day=day).all()
+            return db_connection.session.query(ProductEntity).filter_by(day=day).order_by(ProductEntity.client_name).all()
 
     def products_in_a_day(self, day: date) -> int:
 
